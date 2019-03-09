@@ -99,16 +99,17 @@ def main():
     pcasts = PocketCastsApi('pocketcasts')
 
     gmusic_podcast_list = gmusic.api.get_all_podcast_series()
+    pocketcasts_my_podcasts = pcasts.api.my_podcasts()
 
+    pocket_pod_names = []
+    for pod in pocketcasts_my_podcasts:
+        pocket_pod_names.append(pod.title)
+
+    gmusic_pod_names = []
     for pod in gmusic_podcast_list:
-        pp.pprint(pod['title'])
-        # quit()
-
-    for pod in pcasts.api.my_podcasts():
-        pp.pprint(pod.title)
-        quit()
-
-    # pp.pprint(type(pcasts.api.my_podcasts()))
+        gmusic_pod_names.append(pod['title'])
+        if pod not in pocket_pod_names:
+            print("{} - Is not subsribed on PocketCasts. -> Adding".format(pod['title']))
 
 
 
