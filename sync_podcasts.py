@@ -85,27 +85,30 @@ class PocketCastsApi:
 
     def login(self):
         try:
-            self.api = self.__api.Pocketcasts(self.email, password=self.password)
-        except Exception:
-            print("Pocket Casts API login failed")
+            self.api = self.__api.Api(self.email, self.password)
+            # self.api = self.__api.Pocketcasts.login(username=self.email, password=self.password)
+        except Exception as e:
+            print("Pocket Casts API login failed: {}".format(e))
             quit()
 
 
 def main():
 
+    # Create API objects
     gmusic = GmusicApi('gmusic')
+    pcasts = PocketCastsApi('pocketcasts')
 
-    pocketcasts = PocketCastsApi('pocketcasts')
+    gmusic_podcast_list = gmusic.api.get_all_podcast_series()
 
-    list_of_pods = pocketcasts.api.get_in_progress()
+    for pod in gmusic_podcast_list:
+        pp.pprint(pod['title'])
+        # quit()
 
-    # gmusic_podcast_list = gmusic.api.get_all_podcast_series()
+    for pod in pcasts.api.my_podcasts():
+        pp.pprint(pod.title)
+        quit()
 
-    # for pod in gmusic_podcast_list:
-    #     pp.pprint(pod)
-    #     quit()
-
-    # pocketcasts.Api.my_podcasts.
+    # pp.pprint(type(pcasts.api.my_podcasts()))
 
 
 
