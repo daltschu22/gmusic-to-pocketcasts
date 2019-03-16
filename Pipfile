@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 gmusicapi = "*"
 pocketcasts = {git = "https://github.com/zackbcom/python-pocketcasts.git"}
+requests-html = "*"
 
 [requires]
 python_version = "3.6"
